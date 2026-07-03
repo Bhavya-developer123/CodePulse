@@ -30,15 +30,16 @@ public class StatsService {
         stats.setTotalProblemsSolved(stats.getTotalProblemsSolved()+1);
         if(difficulty.equalsIgnoreCase("easy")){
             stats.setEasyCount(stats.getEasyCount()+1);
-            stats.setXp(stats.getXp()+1);
+            stats.setXp(stats.getXp()+10);
         }
         else if(difficulty.equalsIgnoreCase("medium")){
             stats.setMediumCount(stats.getMediumCount()+1);
-            stats.setXp(stats.getXp()+1);
+            stats.setXp(stats.getXp()+20);
         }
         else{
             stats.setHardCount(stats.getHardCount()+1);
-            stats.setXp(stats.getXp()+1);
+            stats.setXp(stats.getXp()+40);
         }
+        statsRepository.save(stats);
 }
 }

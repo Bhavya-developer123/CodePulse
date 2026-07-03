@@ -12,7 +12,7 @@ public class StatsController {
     @Autowired
     private StatsService statsService;
     @GetMapping("/stats/{username}")
-   public Stats findByUsername(@PathVariable String Username){
-    return statsService.getStats(Username);
+   public Stats findByUsername(@PathVariable String username){
+    return statsService.getStats(username);
    }
 }

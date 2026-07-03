@@ -19,7 +19,7 @@ public class User {
     private String email;
 
     private String college;
-    private String Password;
+    private String password;
     private String role;
     private LocalDateTime createdAt;
 }

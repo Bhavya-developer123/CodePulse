@@ -12,6 +12,7 @@ import com.example.demo.repository.ProblemRepository;
 public class ProblemService {
     @Autowired
     ProblemRepository problemRepository;
+    @Autowired
     StatsService statsService;
     
     public Problem addProblem(Problem problem) {
@@ -40,7 +41,7 @@ public class ProblemService {
             problem.setTopic(updatedProblem.getTopic());
             problem.setPlatform(updatedProblem.getPlatform());
             problem.setSolvedDate(updatedProblem.getSolvedDate());
-            return problemRepository.save(updatedProblem);
+            return problemRepository.save(problem);
         }
         return null;
     }
