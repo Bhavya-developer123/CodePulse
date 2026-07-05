@@ -8,16 +8,22 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Entity.Problem;
 import com.example.demo.repository.ProblemRepository;
 
+
 @Service
 public class ProblemService {
     @Autowired
     ProblemRepository problemRepository;
     @Autowired
     StatsService statsService;
-    
+    @Autowired
+    WeeklyProgressService weeklyProgressService;
+    @Autowired
+    StreakService streakService;
     public Problem addProblem(Problem problem) {
     Problem saved = problemRepository.save(problem);
     statsService.updateOnProblemSolved(problem.getUsername(),problem.getDifficulty());
+    weeklyProgressService.updateWeeklyProgress(problem.getUsername());
+    streakService.updateStreak(problem.getUsername());
     return saved;
 }
     public List<Problem> getAllProblems(){
