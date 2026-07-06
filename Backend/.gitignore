@@ -1,28 +1,55 @@
-HELP.md
+# ==========================
+# Maven
+# ==========================
 target/
-.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-target/
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
 *.log
+
+# ==========================
+# Spring Boot
+# ==========================
+HELP.md
+
+# Ignore application configuration files
+**/application.properties
+**/application-*.properties
+
+# Keep example configuration file
+!**/application.properties.example
+
+# ==========================
+# IntelliJ IDEA
+# ==========================
 .idea/
 *.iml
-### STS ###
+*.ipr
+*.iws
+
+# ==========================
+# Eclipse / STS
+# ==========================
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# ==========================
+# VS Code
+# ==========================
+.vscode/
 
-### NetBeans ###
+# ==========================
+# NetBeans
+# ==========================
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -32,5 +59,14 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+# ==========================
+# OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
