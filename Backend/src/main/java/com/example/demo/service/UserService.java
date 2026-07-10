@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.demo.Entity.User;
 import com.example.demo.dto.UserRequestDto;
@@ -17,10 +18,15 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     public UserResponseDto createUser(UserRequestDto dto) {
 
         User user = new User();
+         if(userRepository.findByEmail(user.getEmail()) != null){
+        throw new RuntimeException("Email already exists");
+    }
 
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
@@ -28,7 +34,7 @@ public class UserService {
         user.setPassword(dto.getPassword());
         user.setRole(dto.getRole());
         user.setCreatedAt(LocalDateTime.now());
-
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
 
         return convertToResponse(savedUser);

@@ -2,6 +2,8 @@ package com.example.demo.Entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +21,7 @@ public class User {
     private String email;
 
     private String college;
+    @JsonIgnore
     private String password;
     private String role;
     private LocalDateTime createdAt;
