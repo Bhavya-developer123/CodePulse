@@ -14,7 +14,7 @@ public class User {
     private int id;
 
     private String name;
-
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String college;
