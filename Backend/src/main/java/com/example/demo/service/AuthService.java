@@ -19,7 +19,8 @@ public class AuthService {
     @Autowired
     private JwtService jwtService;
     public LoginResponseDto login(LoginRequestDto request){
-        User user=userRepository.findByEmail(request.getEmail());
+        User user = userRepository.findByEmail(request.getEmail())
+        .orElseThrow(() -> new RuntimeException("User not found with email: " + request.getEmail()));
         if(user==null){
             throw new RuntimeException("User not found");
         }
