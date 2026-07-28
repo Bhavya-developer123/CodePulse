@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Entity.User;
 import com.example.demo.dto.LoginRequestDto;
 import com.example.demo.dto.LoginResponseDto;
+import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtService;
+
 
 @Service
 public class AuthService {
@@ -30,20 +32,21 @@ public class AuthService {
         String token = jwtService.generateJwtToken(user.getEmail());
         return new LoginResponseDto("Login Successful",token);
     }
-    // Add this method inside com.example.demo.service.AuthService
+public String register(RegisterRequestDto request) {
 
-public String register(User user) {
-    // 1. Check if user already exists
-    if (userRepository.findByEmail(user.getEmail()) != null) {
-        throw new RuntimeException("Email already registered!");
+    if (userRepository.existsByEmail(request.getEmail())) {
+        return "Email already registered!";
     }
 
-    // 2. Encrypt/Hash the raw password before saving!
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    User user = new User();
+    user.setName(request.getName());
+    user.setEmail(request.getEmail());
+    user.setCollege(request.getCollege());
+    user.setRole(request.getRole());
+    user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-    // 3. Save the user to the database
-    userRepository.save(user);
+    userRepository.save(user); // Standard JpaRepository save method
 
-    return "User registered successfully!";
+    return "Registration Successful";
 }
 }

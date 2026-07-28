@@ -14,7 +14,7 @@ public class RegisterRequestDto {
     @NotBlank(message="College is required")
     private String college;
     @Size(min=6,message="Password should be atleast 6 characters")
-    private String characters;
+    private String password;
     @NotBlank(message="Role is required")
     private String role;
 }
