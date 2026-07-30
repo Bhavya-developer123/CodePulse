@@ -1,21 +1,32 @@
 package com.example.demo.security;
 
-import java.util.Collection;
-import java.util.List;
-
+import com.example.demo.Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.Entity.User;
+import java.util.Collection;
+import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-@RequiredArgsConstructor
-public class UserPrincipal implements UserDetails{
+public class UserPrincipal implements UserDetails {
+
     private final User user;
-    public Collection<? extends GrantedAuthority>getAuthorities(){
-        return List.of(new SimpleGrantedAuthority("ROLE_"+user.getRole()));
+
+    public UserPrincipal(User user) {
+        this.user = user;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        String role = user.getRole(); // e.g. "USER" or "ADMIN"
+        
+        if (role != null && !role.startsWith("ROLE_")) {
+            role = "ROLE_" + role;
+        }
+
+        return List.of(new SimpleGrantedAuthority(role));
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -44,9 +55,5 @@ public class UserPrincipal implements UserDetails{
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public User getUser() {
-        return user;
     }
 }
