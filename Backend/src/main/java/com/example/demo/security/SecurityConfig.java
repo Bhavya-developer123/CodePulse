@@ -49,22 +49,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers("/auth/**").permitAll()
-
-                        .requestMatchers("/users/**")
-                        .hasRole("ADMIN")
-
-                        .requestMatchers("/problems/**")
-                        .hasAnyRole("USER", "ADMIN")
-
-                        .requestMatchers("/stats/**")
-                        .hasAnyRole("USER", "ADMIN")
-
-                        .requestMatchers("/weekly-progress/**")
-                        .hasAnyRole("USER", "ADMIN")
-
-                        .requestMatchers("/streak/**")
-                        .hasAnyRole("USER", "ADMIN")
-
                         .requestMatchers("/leaderboard/**")
                         .permitAll()
 
