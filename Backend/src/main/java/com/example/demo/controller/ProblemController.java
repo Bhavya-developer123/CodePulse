@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,14 +11,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.Entity.Problem;
-
 import com.example.demo.service.ProblemService;
 
 @RestController
 @RequestMapping("/problem")
-@PreAuthorize("@authorizationService.isOwnerOrAdmin(authentication,#username)")
 public class ProblemController {
     @Autowired
     private ProblemService problemService;
@@ -35,14 +31,18 @@ public class ProblemController {
     public Problem getProblemById(@PathVariable int id){
         return problemService.getProblemById(id);
     }
+    @GetMapping("/user/{username}")
+    @PreAuthorize("@authorizationService.isOwnerOrAdmin(authentication,#username)")
+    public List<Problem> getProblemsByUsername(@PathVariable("username") String username){
+        return problemService.getByUsername(username);
+    }
     @DeleteMapping("/{id}")
     public String deleteProblemById(@PathVariable int id){
-        problemService.deleteProblem(id);;
+        problemService.deleteProblem(id);
         return "problem deleted successfully";
     }
     @PutMapping("/{id}")
     public Problem updateProblemById(@PathVariable int id,@RequestBody Problem pro){
         return problemService.updateProblem(id,pro);
-        }
     }
-
+}
