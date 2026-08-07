@@ -14,7 +14,7 @@ import com.example.demo.service.WeeklyProgressService;
 
 @RestController
 @RequestMapping("/weekly-progress")
-@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+@PreAuthorize("@authorizationService.isOwnerOrAdmin(authentication,#username)")
 public class WeeklyProgressController {
     @Autowired
     WeeklyProgressService weeklyProgressService;

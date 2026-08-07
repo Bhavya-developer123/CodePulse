@@ -12,7 +12,7 @@ import com.example.demo.service.StreakService;
 
 @RestController
 @RequestMapping("/streak")
-@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+@PreAuthorize("@authorizationService.isOwnerOrAdmin(authentication,#username)")
 public class StreakController {
 
     @Autowired

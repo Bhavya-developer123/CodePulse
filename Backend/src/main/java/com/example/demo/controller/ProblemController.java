@@ -19,7 +19,7 @@ import com.example.demo.service.ProblemService;
 
 @RestController
 @RequestMapping("/problem")
-@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+@PreAuthorize("@authorizationService.isOwnerOrAdmin(authentication,#username)")
 public class ProblemController {
     @Autowired
     private ProblemService problemService;
