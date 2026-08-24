@@ -15,4 +15,5 @@ public interface ProblemRepository extends JpaRepository<Problem,Integer>{
     Page<Problem>findByTopicIgnoreCase(String topic,Pageable pageable);
     Page<Problem>findByPlatformIgnoreCase(String platform,Pageable pageable);
     Page<Problem>findByDifficultyIgnoreCaseAndTopicIgnoreCase(String difficulty,String topic,Pageable pageable);
+    Page<Problem>findByTitleContainingIgnoreCase(String title,Pageable pageable);
 }
