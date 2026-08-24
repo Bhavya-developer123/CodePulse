@@ -76,4 +76,25 @@ public ResponseEntity<Page<Problem>> searchProblems(
         @RequestParam(defaultValue = "asc") String direction) {
     return ResponseEntity.ok(problemService.searchProblems(title,page,size,sortBy,direction));
 }
+@GetMapping("/query")
+@PreAuthorize("hasAnyRole('USER','ADMIN')")
+public ResponseEntity<Page<Problem>> queryProblems(
+        @RequestParam(required = false)
+        String title,
+        @RequestParam(required = false)
+        String difficulty,
+        @RequestParam(required = false)
+        String topic,
+        @RequestParam(required = false)
+        String platform,
+        @RequestParam(defaultValue = "0")
+        int page,
+        @RequestParam(defaultValue = "5")
+        int size,
+        @RequestParam(defaultValue = "id")
+        String sortBy,
+        @RequestParam(defaultValue = "asc")
+        String direction) {
+    return ResponseEntity.ok(problemService.queryProblems(title,difficulty,topic,platform,page,size,sortBy,direction));
+}
 }

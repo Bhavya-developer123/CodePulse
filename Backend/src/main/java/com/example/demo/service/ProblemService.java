@@ -7,12 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Problem;
 import com.example.demo.repository.ProblemRepository;
+import com.example.demo.repository.ProblemSpecification;
 
 @Service
 public class ProblemService {
@@ -117,4 +119,17 @@ public class ProblemService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return problemRepository.findByTitleContainingIgnoreCase(title, pageable);
     }
+    public Page<Problem> queryProblems(String title,String difficulty,String topic,String platform,int page,
+    int size,String sortBy,String direction) {
+    Sort sort;
+    if (direction.equalsIgnoreCase("desc")) {
+        sort = Sort.by(sortBy).descending();
+    } else {
+        sort = Sort.by(sortBy).ascending();
+    }
+    Pageable pageable = PageRequest.of(page,size,sort);
+    Specification<Problem> specification =
+            ProblemSpecification.filterProblems(title,difficulty,topic,platform);
+    return problemRepository.findAll(specification,pageable);
+}
 }

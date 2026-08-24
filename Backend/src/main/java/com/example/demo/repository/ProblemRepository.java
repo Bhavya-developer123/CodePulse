@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.example.demo.Entity.Problem;
 
-public interface ProblemRepository extends JpaRepository<Problem,Integer>{
+public interface ProblemRepository extends JpaRepository<Problem,Integer>,JpaSpecificationExecutor<Problem>{
 
     List<Problem> findByUsername(String username);
     Page<Problem>findByDifficultyIgnoreCase(String difficulty,Pageable pageable);
