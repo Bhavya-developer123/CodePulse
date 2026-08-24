@@ -17,7 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 @RestController
-@RequestMapping("/problem")
+@RequestMapping("/problems")
 public class ProblemController {
     @Autowired
     private ProblemService problemService;
@@ -47,10 +47,12 @@ public class ProblemController {
     public Problem updateProblemById(@PathVariable int id,@RequestBody Problem pro){
         return problemService.updateProblem(id,pro);
     }
-    @GetMapping("/paged")
+    @GetMapping("/filter")
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    public ResponseEntity<Page<Problem>>getProblems(@RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="5")int size,
+    public ResponseEntity<Page<Problem>>getProblems(@RequestParam(required=false)String difficulty,
+    @RequestParam(required=false)String topic,@RequestParam(required=false)String platform,
+    @RequestParam(defaultValue="0")int page,@RequestParam(defaultValue="5")int size,
     @RequestParam(defaultValue="id")String sortBy,@RequestParam(defaultValue="asc")String direction){
-    return ResponseEntity.ok(problemService.getProblems(page,size,sortBy,direction));
+    return ResponseEntity.ok(problemService.filterProblems(difficulty,topic,platform,page,size,sortBy,direction));
 }
 }

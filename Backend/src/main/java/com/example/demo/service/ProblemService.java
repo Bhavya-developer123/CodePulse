@@ -54,7 +54,7 @@ public class ProblemService {
         }
         return null;
     }
-    public Page<Problem>getProblems(int page,int size,String sortBy,String direction){
+    public Page<Problem>filterProblems(String difficulty,String topic,String platform,int page,int size,String sortBy,String direction){
         Sort sort;
         if(direction.equalsIgnoreCase("desc")){
            sort=Sort.by(sortBy).descending();
@@ -63,7 +63,18 @@ public class ProblemService {
             sort=Sort.by(sortBy).ascending();
         }
         Pageable pageable=PageRequest.of(page,size,sort);
+        if(difficulty!=null&&topic!=null){
+            return problemRepository.findByDifficultyIgnoreCaseAndTopicIgnoreCase(difficulty,topic,pageable);
+        }
+        if(difficulty!=null){
+            return problemRepository.findByDifficultyIgnoreCase(difficulty,pageable);
+        }
+        if(topic!=null){
+            return problemRepository.findByTopicIgnoreCase(topic,pageable);
+        }
+        if(platform!=null){
+            return problemRepository.findByPlatformIgnoreCase(platform,pageable);
+        }
         return problemRepository.findAll(pageable);
     }
-    
 }
