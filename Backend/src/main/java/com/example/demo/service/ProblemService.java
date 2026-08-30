@@ -34,6 +34,9 @@ public class ProblemService {
     @Autowired
     private StreakService streakService;
 
+    @Autowired
+    private ActivityService activityService; // 👈 Step 3: Added Dependency
+
     public Problem addProblem(Problem problem) {
         // Extract authenticated username automatically from JWT context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -49,6 +52,9 @@ public class ProblemService {
         weeklyProgressService.updateWeeklyProgress(problem.getUsername());
         streakService.updateStreak(problem.getUsername());
 
+        // 👈 Step 4: Call the async method after saving
+        activityService.logProblemSolved(saved.getUsername(), saved.getTitle());
+
         return saved;
     }
 
@@ -57,10 +63,14 @@ public class ProblemService {
     }
 
     public Problem getProblemById(int id) {
-        return problemRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("problem not find with id:"+id));
+        return problemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("problem not find with id:" + id));
     }
 
     public void deleteProblem(int id) {
+        if (!problemRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Problem not found with id: " + id);
+        }
         problemRepository.deleteById(id);
     }
 
@@ -69,17 +79,16 @@ public class ProblemService {
     }
 
     public Problem updateProblem(int id, Problem updatedProblem) {
-        Problem problem = problemRepository.findById(id).orElse(null);
-        if (problem != null) {
-            problem.setUsername(updatedProblem.getUsername());
-            problem.setTitle(updatedProblem.getTitle());
-            problem.setDifficulty(updatedProblem.getDifficulty());
-            problem.setTopic(updatedProblem.getTopic());
-            problem.setPlatform(updatedProblem.getPlatform());
-            problem.setSolvedDate(updatedProblem.getSolvedDate());
-            return problemRepository.save(problem);
-        }
-        return null;
+        Problem problem = problemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Problem not found with id: " + id));
+
+        problem.setUsername(updatedProblem.getUsername());
+        problem.setTitle(updatedProblem.getTitle());
+        problem.setDifficulty(updatedProblem.getDifficulty());
+        problem.setTopic(updatedProblem.getTopic());
+        problem.setPlatform(updatedProblem.getPlatform());
+        problem.setSolvedDate(updatedProblem.getSolvedDate());
+        return problemRepository.save(problem);
     }
 
     public Page<Problem> getProblems(int page, int size, String sortBy, String direction) {
@@ -122,20 +131,15 @@ public class ProblemService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return problemRepository.findByTitleContainingIgnoreCase(title, pageable);
     }
-    public Page<ProblemResponseDto> queryProblems(String title,String difficulty,String topic,String platform,int page,
-    int size,String sortBy,String direction) {
-        ProblemQueryValidator.validate(page,size,sortBy,direction);
-    Sort sort;
-    if (direction.equalsIgnoreCase("desc")) {
-        sort = Sort.by(sortBy).descending();
-    } else {
-        sort = Sort.by(sortBy).ascending();
+
+    public Page<ProblemResponseDto> queryProblems(String title, String difficulty, String topic, String platform, int page,
+            int size, String sortBy, String direction) {
+        ProblemQueryValidator.validate(page, size, sortBy, direction);
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Specification<Problem> specification = ProblemSpecification.filterProblems(title, difficulty, topic, platform);
+        Page<Problem> problems = problemRepository.findAll(specification, pageable);
+        return problems.map(problem -> new ProblemResponseDto(problem.getId(), problem.getUsername(), problem.getTitle(),
+                problem.getDifficulty(), problem.getTopic(), problem.getPlatform(), problem.getSolvedDate()));
     }
-    Pageable pageable = PageRequest.of(page,size,sort);
-    Specification<Problem> specification =
-            ProblemSpecification.filterProblems(title,difficulty,topic,platform);
-    Page<Problem>problems= problemRepository.findAll(specification,pageable);
-    return problems.map(problem->new ProblemResponseDto(problem.getId(),problem.getUsername(),problem.getTitle(),
-problem.getDifficulty(),problem.getTopic(),problem.getPlatform(),problem.getSolvedDate()));
-}
 }
