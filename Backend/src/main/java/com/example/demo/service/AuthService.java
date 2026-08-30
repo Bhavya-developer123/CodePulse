@@ -8,6 +8,8 @@ import com.example.demo.Entity.User;
 import com.example.demo.dto.LoginRequestDto;
 import com.example.demo.dto.LoginResponseDto;
 import com.example.demo.dto.RegisterRequestDto;
+import com.example.demo.exception.DuplicateResourceException;
+import com.example.demo.exception.InvalidCredentialsException;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.security.JwtService;
 
@@ -22,12 +24,12 @@ public class AuthService {
     private JwtService jwtService;
     public LoginResponseDto login(LoginRequestDto request){
         User user = userRepository.findByEmail(request.getEmail())
-        .orElseThrow(() -> new RuntimeException("User not found with email: " + request.getEmail()));
+        .orElseThrow(() -> new InvalidCredentialsException("User not found with email: " + request.getEmail()));
         if(user==null){
             throw new RuntimeException("User not found");
         }
         if(!passwordEncoder.matches(request.getPassword(),user.getPassword())){
-            throw new RuntimeException("Invalid Password");
+            throw new InvalidCredentialsException("Invalid Password");
         }
         String token = jwtService.generateJwtToken(user.getEmail());
         return new LoginResponseDto("Login Successful",token);
@@ -35,7 +37,7 @@ public class AuthService {
 public String register(RegisterRequestDto request) {
 
     if (userRepository.existsByEmail(request.getEmail())) {
-        return "Email already registered!";
+        throw new DuplicateResourceException("Email already exists");
     }
 
     User user = new User();

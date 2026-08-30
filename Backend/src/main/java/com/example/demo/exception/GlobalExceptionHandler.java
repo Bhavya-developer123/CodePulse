@@ -58,4 +58,18 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ApiErrorResponse>handleDuplicateResource(DuplicateResourceException ex,HttpServletRequest request){
+        ApiErrorResponse response=new ApiErrorResponse(LocalDateTime.now(),HttpStatus.CONFLICT.value(),"conflict",ex.getMessage(),
+        request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ApiErrorResponse>handleInvalidCredentials(InvalidCredentialsException ex,HttpServletRequest request){
+        ApiErrorResponse response=new ApiErrorResponse(LocalDateTime.now(),HttpStatus.CONFLICT.value(),"Unauthorized",ex.getMessage(),
+        request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+    }
 }
