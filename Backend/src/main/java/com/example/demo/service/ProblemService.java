@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Problem;
 import com.example.demo.dto.ProblemResponseDto;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ProblemRepository;
 import com.example.demo.repository.ProblemSpecification;
 import com.example.demo.validation.ProblemQueryValidator;
@@ -56,7 +57,7 @@ public class ProblemService {
     }
 
     public Problem getProblemById(int id) {
-        return problemRepository.findById(id).orElse(null);
+        return problemRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("problem not find with id:"+id));
     }
 
     public void deleteProblem(int id) {

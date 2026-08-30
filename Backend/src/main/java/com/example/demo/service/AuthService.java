@@ -45,7 +45,7 @@ public String register(RegisterRequestDto request) {
     user.setRole(request.getRole());
     user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-    userRepository.save(user); // Standard JpaRepository save method
+    userRepository.save(user);
 
     return "Registration Successful";
 }

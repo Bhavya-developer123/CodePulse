@@ -9,6 +9,7 @@ import lombok.Data;
 public class RegisterRequestDto {
     @NotBlank(message="Name is required")
     private String name;
+    @NotBlank(message="Email is required")
     @Email(message="Invalid Email")
     private String email;
     @NotBlank(message="College is required")
