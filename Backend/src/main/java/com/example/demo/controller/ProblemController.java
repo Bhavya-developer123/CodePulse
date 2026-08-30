@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Entity.Problem;
+import com.example.demo.dto.ProblemResponseDto;
 import com.example.demo.service.ProblemService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -78,7 +79,7 @@ public ResponseEntity<Page<Problem>> searchProblems(
 }
 @GetMapping("/query")
 @PreAuthorize("hasAnyRole('USER','ADMIN')")
-public ResponseEntity<Page<Problem>> queryProblems(
+public ResponseEntity<Page<ProblemResponseDto>> queryProblems(
         @RequestParam(required = false)
         String title,
         @RequestParam(required = false)

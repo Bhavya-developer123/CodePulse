@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Problem;
+import com.example.demo.dto.ProblemResponseDto;
 import com.example.demo.repository.ProblemRepository;
 import com.example.demo.repository.ProblemSpecification;
 import com.example.demo.validation.ProblemQueryValidator;
@@ -120,7 +121,7 @@ public class ProblemService {
         Pageable pageable = PageRequest.of(page, size, sort);
         return problemRepository.findByTitleContainingIgnoreCase(title, pageable);
     }
-    public Page<Problem> queryProblems(String title,String difficulty,String topic,String platform,int page,
+    public Page<ProblemResponseDto> queryProblems(String title,String difficulty,String topic,String platform,int page,
     int size,String sortBy,String direction) {
         ProblemQueryValidator.validate(page,size,sortBy,direction);
     Sort sort;
@@ -132,6 +133,8 @@ public class ProblemService {
     Pageable pageable = PageRequest.of(page,size,sort);
     Specification<Problem> specification =
             ProblemSpecification.filterProblems(title,difficulty,topic,platform);
-    return problemRepository.findAll(specification,pageable);
+    Page<Problem>problems= problemRepository.findAll(specification,pageable);
+    return problems.map(problem->new ProblemResponseDto(problem.getId(),problem.getUsername(),problem.getTitle(),
+problem.getDifficulty(),problem.getTopic(),problem.getPlatform(),problem.getSolvedDate()));
 }
 }
