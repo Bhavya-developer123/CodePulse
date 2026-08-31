@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.Stats;
 import com.example.demo.dto.LeaderBoardDto;
+import com.example.demo.entity.Stats;
 import com.example.demo.repository.StatsRepository;
 import org.springframework.cache.annotation.Cacheable;
 @Service

@@ -12,16 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.Problem;
 import com.example.demo.dto.ProblemResponseDto;
+import com.example.demo.entity.Problem;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ProblemRepository;
 import com.example.demo.repository.ProblemSpecification;
 import com.example.demo.validation.ProblemQueryValidator;
 import org.springframework.cache.annotation.Cacheable;
-
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ProblemService {
 
     @Autowired
@@ -48,12 +49,13 @@ public class ProblemService {
         }
 
         Problem saved = problemRepository.save(problem);
-
+        log.info("Problem solved: username={}, title={}, difficulty={}",
+        problem.getUsername(),
+        problem.getTitle(),
+        problem.getDifficulty());
         statsService.updateOnProblemSolved(problem.getUsername(), problem.getDifficulty());
         weeklyProgressService.updateWeeklyProgress(problem.getUsername());
         streakService.updateStreak(problem.getUsername());
-
-        // 👈 Step 4: Call the async method after saving
         activityService.logProblemSolved(saved.getUsername(), saved.getTitle());
 
         return saved;

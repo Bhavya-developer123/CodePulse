@@ -1,6 +1,7 @@
 package com.example.demo.repository;
-import com.example.demo.Entity.Problem;
 import org.springframework.data.jpa.domain.Specification;
+
+import com.example.demo.entity.Problem;
 public class ProblemSpecification {
     public static Specification<Problem> filterProblems(
             String title,

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Entity.WeeklyProgress;
+import com.example.demo.entity.WeeklyProgress;
 import com.example.demo.service.WeeklyProgressService;
 
 @RestController

@@ -7,9 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.demo.Entity.User;
+
 import com.example.demo.dto.UserRequestDto;
 import com.example.demo.dto.UserResponseDto;
+import com.example.demo.entity.User;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.UserRepository;
 

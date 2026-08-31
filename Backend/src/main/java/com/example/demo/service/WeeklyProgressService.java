@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.WeeklyProgress;
+import com.example.demo.entity.WeeklyProgress;
 import com.example.demo.repository.WeeklyProgressRepository;
 
 @Service

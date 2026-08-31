@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.Streak;
+import com.example.demo.entity.Streak;
 import com.example.demo.repository.StreakRepository;
 
 @Service

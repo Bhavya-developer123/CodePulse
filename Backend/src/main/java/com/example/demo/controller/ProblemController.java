@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.Entity.Problem;
+
 import com.example.demo.dto.ProblemResponseDto;
+import com.example.demo.entity.Problem;
 import com.example.demo.service.ProblemService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

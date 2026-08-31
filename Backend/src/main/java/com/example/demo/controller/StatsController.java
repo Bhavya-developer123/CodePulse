@@ -1,7 +1,8 @@
 package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.Entity.Stats;
+
+import com.example.demo.entity.Stats;
 import com.example.demo.service.StatsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
