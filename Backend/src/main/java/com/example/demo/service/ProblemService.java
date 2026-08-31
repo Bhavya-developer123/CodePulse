@@ -18,6 +18,8 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.ProblemRepository;
 import com.example.demo.repository.ProblemSpecification;
 import com.example.demo.validation.ProblemQueryValidator;
+import org.springframework.cache.annotation.Cacheable;
+
 
 @Service
 public class ProblemService {
@@ -35,10 +37,9 @@ public class ProblemService {
     private StreakService streakService;
 
     @Autowired
-    private ActivityService activityService; // 👈 Step 3: Added Dependency
+    private ActivityService activityService; 
 
     public Problem addProblem(Problem problem) {
-        // Extract authenticated username automatically from JWT context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
 
@@ -61,7 +62,7 @@ public class ProblemService {
     public List<Problem> getAllProblems() {
         return problemRepository.findAll();
     }
-
+    @Cacheable(value = "problems", key = "#id")
     public Problem getProblemById(int id) {
         return problemRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("problem not find with id:" + id));

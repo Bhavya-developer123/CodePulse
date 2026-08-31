@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Entity.Stats;
 import com.example.demo.dto.LeaderBoardDto;
 import com.example.demo.repository.StatsRepository;
+import org.springframework.cache.annotation.Cacheable;
 @Service
 public class LeaderboardService {
     @Autowired
     private StatsRepository statsRepository;
+    @Cacheable(value = "leaderboard")
     public List<LeaderBoardDto> getLeaderBoard(){
         List<Stats>statsList=statsRepository.findAllByOrderByXpDesc();
         List<LeaderBoardDto> leaderboard=new ArrayList<>();
