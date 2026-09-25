@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-
+import Sidebar from "./components/sidebar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -33,12 +33,19 @@ function App() {
 
                 <Route
                     path="/dashboard"
-                    element={
-                        <>
-                            <Navbar />
-                            <Dashboard />
-                        </>
-                    }
+                     element={
+        <>
+            <Navbar />
+
+            <div className="dashboard-layout">
+                <Sidebar />
+
+                <main className="dashboard-content">
+                    <Dashboard />
+                </main>
+            </div>
+        </>
+    }
                 />
 
                 <Route
