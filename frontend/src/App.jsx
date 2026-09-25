@@ -14,8 +14,6 @@ function App() {
     return (
         <BrowserRouter>
 
-            <Navbar />
-
             <Routes>
 
                 <Route
@@ -35,22 +33,42 @@ function App() {
 
                 <Route
                     path="/dashboard"
-                    element={<Dashboard />}
+                    element={
+                        <>
+                            <Navbar />
+                            <Dashboard />
+                        </>
+                    }
                 />
 
                 <Route
                     path="/problems"
-                    element={<Problems />}
+                    element={
+                        <>
+                            <Navbar />
+                            <Problems />
+                        </>
+                    }
                 />
 
                 <Route
                     path="/leaderboard"
-                    element={<Leaderboard />}
+                    element={
+                        <>
+                            <Navbar />
+                            <Leaderboard />
+                        </>
+                    }
                 />
 
                 <Route
                     path="/profile"
-                    element={<Profile />}
+                    element={
+                        <>
+                            <Navbar />
+                            <Profile />
+                        </>
+                    }
                 />
 
                 <Route
