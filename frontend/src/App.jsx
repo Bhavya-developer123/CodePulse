@@ -20,7 +20,7 @@ function App() {
                     path="/"
                     element={<Navigate to="/login" replace />}
                 />
-
+                
                 <Route
                     path="/login"
                     element={<Login />}
@@ -29,8 +29,7 @@ function App() {
                 <Route
                     path="/register"
                     element={<Register />}
-                />
-
+/>
                 <Route
                     path="/dashboard"
                      element={
@@ -49,14 +48,21 @@ function App() {
                 />
 
                 <Route
-                    path="/problems"
-                    element={
-                        <>
-                            <Navbar />
-                            <Problems />
-                        </>
-                    }
-                />
+    path="/problems"
+    element={
+        <>
+            <Navbar />
+
+            <div className="dashboard-layout">
+                <Sidebar />
+
+                <main className="dashboard-content">
+                    <Problems />
+                </main>
+            </div>
+        </>
+    }
+/>
 
                 <Route
                     path="/leaderboard"
@@ -67,7 +73,24 @@ function App() {
                         </>
                     }
                 />
+<Route
+    path="/leaderboard"
+    element={
+        <>
+            <Navbar />
 
+            <div className="dashboard-layout">
+
+                <Sidebar />
+
+                <main className="dashboard-content">
+                    <Leaderboard />
+                </main>
+
+            </div>
+        </>
+    }
+/>
                 <Route
                     path="/profile"
                     element={
