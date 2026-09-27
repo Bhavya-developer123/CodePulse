@@ -2,40 +2,99 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>CodePulse</title>
 
-    <link rel="stylesheet" href="popup.css">
+    <link
+        rel="stylesheet"
+        href="popup.css"
+    >
+
 </head>
 
 <body>
 
     <div class="popup-container">
 
-        <div class="logo">
-            ⚡
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <div class="logo">
+                ⚡
+            </div>
+
+            <div class="brand-text">
+
+                <h1>CodePulse</h1>
+
+                <p>
+                    Track. Improve. Grow.
+                </p>
+
+            </div>
+
         </div>
 
-        <h1>CodePulse</h1>
 
-        <p class="tagline">
-            Track. Improve. Grow.
-        </p>
+        <!-- STATUS -->
 
         <div class="status">
+
             <span class="status-dot"></span>
+
             Extension Ready
+
         </div>
 
-        <button id="addProblemButton">
+
+        <!-- PROBLEM -->
+
+        <div class="problem-section">
+
+            <div class="section-label">
+                Detected Problem
+            </div>
+
+            <div id="problemContainer">
+
+                <p class="loading">
+                    Reading current page...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTION -->
+
+        <button
+            id="addProblemButton"
+            disabled
+        >
             + Add Problem
         </button>
 
+
         <p id="message"></p>
 
+
+        <!-- FOOTER -->
+
+        <div class="footer">
+            CodePulse • Your coding journey
+        </div>
+
     </div>
+
 
     <script src="popup.js"></script>
 
