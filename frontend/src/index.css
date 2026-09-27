@@ -8,7 +8,25 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f7fb;
 }
+@media (max-width: 900px) {
 
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-content {
+        padding: 20px;
+    }
+
+}
 
 /* =========================
    LOGIN PAGE
@@ -610,4 +628,83 @@ body {
     flex: 1;
     padding: 30px;
     box-sizing: border-box;
+}
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.dashboard-header p {
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* =========================
+   DASHBOARD STAT CARDS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 22px;
+    min-height: 150px;
+    box-sizing: border-box;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stat-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.stat-title {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.stat-value {
+    margin: 18px 0 5px;
+    font-size: 32px;
+    line-height: 1;
+}
+
+.stat-description {
+    margin: 0;
+    color: #888;
+    font-size: 12px;
 }
