@@ -17,4 +17,9 @@ public interface ProblemRepository extends JpaRepository<Problem,Integer>,JpaSpe
     Page<Problem>findByPlatformIgnoreCase(String platform,Pageable pageable);
     Page<Problem>findByDifficultyIgnoreCaseAndTopicIgnoreCase(String difficulty,String topic,Pageable pageable);
     Page<Problem>findByTitleContainingIgnoreCase(String title,Pageable pageable);
+    boolean existsByUsernameAndTitleIgnoreCaseAndPlatformIgnoreCase(
+        String username,
+        String title,
+        String platform
+);
 }

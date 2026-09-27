@@ -41,25 +41,69 @@ public class ProblemService {
     private ActivityService activityService; 
 
     public Problem addProblem(Problem problem) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName();
 
-        if (currentUsername != null && !currentUsername.equals("anonymousUser")) {
-            problem.setUsername(currentUsername);
-        }
+    Authentication authentication =
+            SecurityContextHolder.getContext().getAuthentication();
 
-        Problem saved = problemRepository.save(problem);
-        log.info("Problem solved: username={}, title={}, difficulty={}",
-        problem.getUsername(),
-        problem.getTitle(),
-        problem.getDifficulty());
-        statsService.updateOnProblemSolved(problem.getUsername(), problem.getDifficulty());
-        weeklyProgressService.updateWeeklyProgress(problem.getUsername());
-        streakService.updateStreak(problem.getUsername());
-        activityService.logProblemSolved(saved.getUsername(), saved.getTitle());
+    String currentUsername = authentication.getName();
 
-        return saved;
+    if (currentUsername != null &&
+            !currentUsername.equals("anonymousUser")) {
+
+        problem.setUsername(currentUsername);
     }
+
+    boolean alreadyExists =
+            problemRepository
+                    .existsByUsernameAndTitleIgnoreCaseAndPlatformIgnoreCase(
+                            problem.getUsername(),
+                            problem.getTitle(),
+                            problem.getPlatform()
+                    );
+
+    if (alreadyExists) {
+        log.warn(
+                "Duplicate problem: username={}, title={}, platform={}",
+                problem.getUsername(),
+                problem.getTitle(),
+                problem.getPlatform()
+        );
+
+        throw new IllegalArgumentException(
+                "Problem already added: " +
+                problem.getTitle()
+        );
+    }
+
+    Problem saved = problemRepository.save(problem);
+
+    log.info(
+            "Problem solved: username={}, title={}, difficulty={}",
+            problem.getUsername(),
+            problem.getTitle(),
+            problem.getDifficulty()
+    );
+
+    statsService.updateOnProblemSolved(
+            problem.getUsername(),
+            problem.getDifficulty()
+    );
+
+    weeklyProgressService.updateWeeklyProgress(
+            problem.getUsername()
+    );
+
+    streakService.updateStreak(
+            problem.getUsername()
+    );
+
+    activityService.logProblemSolved(
+            saved.getUsername(),
+            saved.getTitle()
+    );
+
+    return saved;
+}
 
     public List<Problem> getAllProblems() {
         return problemRepository.findAll();
