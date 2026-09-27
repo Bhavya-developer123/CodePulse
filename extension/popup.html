@@ -2,99 +2,144 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodePulse</title>
-
-    <link
-        rel="stylesheet"
-        href="popup.css"
-    >
-
+    <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
 
     <div class="popup-container">
 
-        <!-- BRAND -->
-
+        <!-- Brand -->
         <div class="brand">
-
-            <div class="logo">
-                ⚡
-            </div>
+            <div class="logo">⚡</div>
 
             <div class="brand-text">
-
                 <h1>CodePulse</h1>
-
-                <p>
-                    Track. Improve. Grow.
-                </p>
-
+                <p>Track. Improve. Grow.</p>
             </div>
-
         </div>
 
+        <!-- Authentication Section -->
+        <div id="authSection">
 
-        <!-- STATUS -->
-
-        <div class="status">
-
-            <span class="status-dot"></span>
-
-            Extension Ready
-
-        </div>
-
-
-        <!-- PROBLEM -->
-
-        <div class="problem-section">
+            <div class="auth-status">
+                <span class="status-dot disconnected"></span>
+                Not Connected
+            </div>
 
             <div class="section-label">
-                Detected Problem
+                Connect your CodePulse account
             </div>
 
-            <div id="problemContainer">
+            <p class="auth-description">
+                Sign in once to automatically track your coding problems.
+            </p>
 
-                <p class="loading">
-                    Reading current page...
-                </p>
+            <div class="input-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                >
+
+                <p id="emailError" class="error"></p>
 
             </div>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <div class="password-container">
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                    >
+
+                    <button id="togglePassword" class="password-toggle">
+                        Show
+                    </button>
+
+                </div>
+
+                <p id="passwordError" class="error"></p>
+
+            </div>
+
+            <button id="connectButton">
+                🔐 Connect to CodePulse
+            </button>
+
+            <p id="authMessage"></p>
 
         </div>
 
 
-        <!-- ACTION -->
+        <!-- Connected Section -->
 
-        <button
-            id="addProblemButton"
-            disabled
-        >
-            + Add Problem
-        </button>
+        <div id="connectedSection" style="display: none;">
+
+            <div class="auth-status">
+                <span class="status-dot connected"></span>
+                Connected
+            </div>
+
+            <div class="user-card">
+
+                <div class="user-avatar">
+                    B
+                </div>
+
+                <div>
+                    <p class="user-label">CodePulse Account</p>
+                    <h3 id="connectedEmail"></h3>
+                </div>
+
+            </div>
 
 
-        <p id="message"></p>
+            <!-- Problem Section -->
 
+            <div class="problem-section">
 
-        <!-- FOOTER -->
+                <div class="section-label">
+                    Detected Problem
+                </div>
+
+                <div id="problemContainer">
+                    <p class="loading">
+                        Reading current page...
+                    </p>
+                </div>
+
+            </div>
+
+            <button id="addProblemButton" disabled>
+                + Add Problem
+            </button>
+
+            <p id="message"></p>
+
+            <button id="disconnectButton" class="disconnect-button">
+                Disconnect
+            </button>
+
+        </div>
+
 
         <div class="footer">
             CodePulse • Your coding journey
         </div>
 
     </div>
-
 
     <script src="popup.js"></script>
 
