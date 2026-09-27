@@ -31,6 +31,13 @@ function Sidebar() {
                 </NavLink>
 
                 <NavLink
+                    to="/weekly"
+                    className={getSidebarClass}
+                >
+                    Weekly Graph
+                </NavLink>
+
+                <NavLink
                     to="/leaderboard"
                     className={getSidebarClass}
                 >

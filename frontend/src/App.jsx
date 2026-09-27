@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/sidebar";
+import DashboardLayout from "./components/DashboardLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Problems from "./pages/Problems";
+import WeeklyGraph from "./pages/WeeklyGraph";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -13,101 +12,36 @@ import NotFound from "./pages/NotFound";
 function App() {
     return (
         <BrowserRouter>
-
             <Routes>
-
+                {/* Public Routes */}
                 <Route
                     path="/"
                     element={<Navigate to="/login" replace />}
                 />
-                
                 <Route
                     path="/login"
                     element={<Login />}
                 />
-
                 <Route
                     path="/register"
                     element={<Register />}
-/>
-                <Route
-                    path="/dashboard"
-                     element={
-        <>
-            <Navbar />
-
-            <div className="dashboard-layout">
-                <Sidebar />
-
-                <main className="dashboard-content">
-                    <Dashboard />
-                </main>
-            </div>
-        </>
-    }
                 />
 
-                <Route
-    path="/problems"
-    element={
-        <>
-            <Navbar />
+                {/* Protected Dashboard Routes (All share Navbar & Sidebar via DashboardLayout) */}
+                <Route element={<DashboardLayout />}>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/problems" element={<Problems />} />
+                    <Route path="/weekly" element={<WeeklyGraph />} />
+                    <Route path="/leaderboard" element={<Leaderboard />} />
+                    <Route path="/profile" element={<Profile />} />
+                </Route>
 
-            <div className="dashboard-layout">
-                <Sidebar />
-
-                <main className="dashboard-content">
-                    <Problems />
-                </main>
-            </div>
-        </>
-    }
-/>
-
-                <Route
-                    path="/leaderboard"
-                    element={
-                        <>
-                            <Navbar />
-                            <Leaderboard />
-                        </>
-                    }
-                />
-<Route
-    path="/leaderboard"
-    element={
-        <>
-            <Navbar />
-
-            <div className="dashboard-layout">
-
-                <Sidebar />
-
-                <main className="dashboard-content">
-                    <Leaderboard />
-                </main>
-
-            </div>
-        </>
-    }
-/>
-                <Route
-                    path="/profile"
-                    element={
-                        <>
-                            <Navbar />
-                            <Profile />
-                        </>
-                    }
-                />
-
+                {/* 404 Not Found */}
                 <Route
                     path="*"
                     element={<NotFound />}
                 />
-
             </Routes>
-
         </BrowserRouter>
     );
 }
