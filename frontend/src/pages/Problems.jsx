@@ -1,6 +1,23 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import apiClient from "../api/apiClient";
 function Problems() {
+    useEffect(() => {
+
+    apiClient.get("/api/v1/problems")
+        .then((response) => {
+
+            console.log("Backend response:");
+            console.log(response.data);
+
+        })
+        .catch((error) => {
+
+            console.error("Backend request failed:");
+            console.error(error);
+
+        });
+
+}, []);
 
     const [problems, setProblems] = useState([
         {
