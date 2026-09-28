@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { saveToken } from "../utils/auth";
+import apiClient from "../api/apiClient"; 
 function Login() {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,9 +12,9 @@ function Login() {
     const [passwordError, setPasswordError] = useState("");
 
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const validateForm = () => {
-
         let isValid = true;
 
         setEmailError("");
@@ -39,8 +39,7 @@ function Login() {
         return isValid;
     };
 
-    const handleSubmit = (e) => {
-
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!validateForm()) {
@@ -49,44 +48,34 @@ function Login() {
 
         setLoading(true);
 
-        setTimeout(() => {
+        try {
+            const response = await apiClient.post("/auth/login", {
+                email,
+                password
+            });
 
+            saveToken(response.data.token);
+            navigate("/problems");
+        } catch (error) {
+            console.error("Login failed:", error);
+        } finally {
             setLoading(false);
-
-            alert("Login form is working!");
-
-        }, 1000);
+        }
     };
 
     return (
         <div className="login-page">
-
             <div className="login-card">
-
                 <div className="login-header">
-
                     <h1>CodePulse</h1>
-
-                    <p>
-                        Welcome back!
-                    </p>
-
-                    <span>
-                        Login to continue your coding journey.
-                    </span>
-
+                    <p>Welcome back!</p>
+                    <span>Login to continue your coding journey.</span>
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
                     {/* Email */}
-
                     <div className="form-group">
-
-                        <label htmlFor="email">
-                            Email
-                        </label>
-
+                        <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             type="email"
@@ -94,34 +83,19 @@ function Login() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-
                         {emailError && (
-                            <p className="error-message">
-                                {emailError}
-                            </p>
+                            <p className="error-message">{emailError}</p>
                         )}
-
                     </div>
 
-
                     {/* Password */}
-
                     <div className="form-group">
-
                         <div className="password-label">
-
-                            <label htmlFor="password">
-                                Password
-                            </label>
-
-                            <Link to="/forgot-password">
-                                Forgot password?
-                            </Link>
-
+                            <label htmlFor="password">Password</label>
+                            <Link to="/forgot-password">Forgot password?</Link>
                         </div>
 
                         <div className="password-container">
-
                             <input
                                 id="password"
                                 type={showPassword ? "text" : "password"}
@@ -129,30 +103,21 @@ function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-
                             <button
                                 type="button"
                                 className="show-password"
-                                onClick={() =>
-                                    setShowPassword(!showPassword)
-                                }
+                                onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? "Hide" : "Show"}
                             </button>
-
                         </div>
 
                         {passwordError && (
-                            <p className="error-message">
-                                {passwordError}
-                            </p>
+                            <p className="error-message">{passwordError}</p>
                         )}
-
                     </div>
 
-
                     {/* Login Button */}
-
                     <button
                         type="submit"
                         className="login-button"
@@ -160,26 +125,14 @@ function Login() {
                     >
                         {loading ? "Logging in..." : "Login"}
                     </button>
-
                 </form>
 
-
                 {/* Register */}
-
                 <p className="register-text">
-
-                    Don't have an account?
-
-                    {" "}
-
-                    <Link to="/register">
-                        Create an account
-                    </Link>
-
+                    Don't have an account?{" "}
+                    <Link to="/register">Create an account</Link>
                 </p>
-
             </div>
-
         </div>
     );
 }
