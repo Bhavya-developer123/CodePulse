@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import DashboardLayout from "./components/DashboardLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AddProblem from "./pages/AddProblem";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -14,33 +17,48 @@ function App() {
         <BrowserRouter>
             <Routes>
                 {/* Public Routes */}
-                <Route
-                    path="/"
-                    element={<Navigate to="/login" replace />}
-                />
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
-                <Route
-                    path="/register"
-                    element={<Register />}
-                />
+                <Route path="/" element={<Navigate to="/login" replace />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
-                {/* Protected Dashboard Routes (All share Navbar & Sidebar via DashboardLayout) */}
-                <Route element={<DashboardLayout />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/problems" element={<Problems />} />
-                    <Route path="/weekly" element={<WeeklyGraph />} />
-                    <Route path="/leaderboard" element={<Leaderboard />} />
-                    <Route path="/profile" element={<Profile />} />
-                </Route>
+                {/* Protected Routes wrapped with DashboardLayout and ProtectedRoute */}
+               <Route element={<ProtectedRoute />}>
 
-                {/* 404 Not Found */}
-                <Route
-                    path="*"
-                    element={<NotFound />}
-                />
+    <Route element={<DashboardLayout />}>
+
+        <Route
+            path="/dashboard"
+            element={<Dashboard />}
+        />
+
+        <Route
+            path="/problems"
+            element={<Problems />}
+        />
+
+        <Route
+            path="/weekly"
+            element={<WeeklyGraph />}
+        />
+
+        <Route
+            path="/leaderboard"
+            element={<Leaderboard />}
+        />
+
+        <Route
+            path="/profile"
+            element={<Profile />}
+        />
+
+        <Route
+            path="/add-problem"
+            element={<AddProblem />}
+        />
+
+    </Route>
+
+</Route>
             </Routes>
         </BrowserRouter>
     );

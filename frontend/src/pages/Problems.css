@@ -1,0 +1,701 @@
+/* =========================================
+   PROBLEMS PAGE
+========================================= */
+
+.problems-page,
+.add-problem-page {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.problems-page-header,
+.add-problem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.page-label {
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #6366f1;
+}
+
+.problems-page-header h1,
+.add-problem-header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
+    color: #111827;
+}
+
+.problems-page-header p,
+.add-problem-header p {
+    margin: 8px 0 0;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* =========================================
+   ADD PROBLEM BUTTON
+========================================= */
+
+.add-problem-button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 18px;
+    background: #4f46e5;
+    color: white;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(79, 70, 229, 0.22);
+    transition: all 0.2s ease;
+}
+
+.add-problem-button:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.28);
+}
+
+.add-icon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.problems-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 26px;
+}
+
+.problem-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 90px;
+    padding: 18px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+}
+
+.problem-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.total-icon {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.easy-icon {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.medium-icon {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.hard-icon {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.problem-stat-card span {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.problem-stat-card strong {
+    display: block;
+    color: #111827;
+    font-size: 23px;
+    line-height: 1;
+}
+
+
+/* =========================================
+   MAIN PROBLEMS CARD
+========================================= */
+
+.problems-card {
+    overflow: hidden;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.problems-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 24px;
+    border-bottom: 1px solid #eef0f3;
+}
+
+.problems-card-header h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.problems-card-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.refresh-button {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 9px 13px;
+    background: white;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.refresh-button:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.problems-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.problems-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.problems-table thead {
+    background: #f8fafc;
+}
+
+.problems-table th {
+    padding: 14px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.problems-table td {
+    padding: 17px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #374151;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.problems-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.problems-table tbody tr:hover {
+    background: #fafbff;
+}
+
+.problems-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================
+   PROBLEM TITLE
+========================================= */
+
+.problem-title-cell {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 220px;
+}
+
+.problem-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.problem-title-cell strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.problem-title-cell span {
+    display: block;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+
+/* =========================================
+   BADGES
+========================================= */
+
+.difficulty-badge,
+.topic-badge,
+.platform-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 7px;
+    padding: 5px 9px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.difficulty-badge.easy {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.difficulty-badge.medium {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.difficulty-badge.hard {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.topic-badge {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.platform-badge {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.solved-date {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.problems-loading {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 14px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #4f46e5;
+    border-radius: 50%;
+    animation: problems-spin 0.8s linear infinite;
+}
+
+@keyframes problems-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-problems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 330px;
+    padding: 40px;
+    text-align: center;
+}
+
+.empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 17px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 30px;
+}
+
+.empty-problems h3 {
+    margin: 0;
+    color: #111827;
+    font-size: 18px;
+}
+
+.empty-problems p {
+    max-width: 420px;
+    margin: 8px 0 20px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.empty-add-button {
+    border: none;
+    border-radius: 9px;
+    padding: 11px 16px;
+    background: #4f46e5;
+    color: white;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.problems-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 24px;
+    padding: 14px 16px;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.problems-error strong {
+    font-size: 13px;
+}
+
+.problems-error span {
+    flex: 1;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.problems-error button {
+    border: none;
+    border-radius: 7px;
+    padding: 7px 11px;
+    background: #dc2626;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* =========================================
+   ADD PROBLEM PAGE
+========================================= */
+
+.add-problem-card {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.form-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eef0f3;
+}
+
+.form-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 25px;
+}
+
+.form-card-header h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 19px;
+}
+
+.form-card-header p {
+    margin: 5px 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    outline: none;
+    background: white;
+    color: #111827;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+
+/* =========================================
+   FORM MESSAGES
+========================================= */
+
+.form-error {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.form-success {
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    background: #f0fdf4;
+    color: #15803d;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FORM BUTTONS
+========================================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 10px;
+}
+
+.cancel-button,
+.save-problem-button,
+.back-button {
+    border-radius: 9px;
+    padding: 11px 17px;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancel-button,
+.back-button {
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+}
+
+.cancel-button:hover,
+.back-button:hover {
+    background: #f9fafb;
+}
+
+.save-problem-button {
+    border: none;
+    background: #4f46e5;
+    color: white;
+}
+
+.save-problem-button:hover:not(:disabled) {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
+
+.save-problem-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .problems-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .problems-page,
+    .add-problem-page {
+        padding: 20px 15px;
+    }
+
+    .problems-page-header,
+    .add-problem-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .problems-page-header h1,
+    .add-problem-header h1 {
+        font-size: 27px;
+    }
+
+    .problems-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .problems-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .add-problem-card {
+        padding: 22px 18px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-button,
+    .save-problem-button {
+        width: 100%;
+    }
+
+    .problems-error {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
