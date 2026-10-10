@@ -7,6 +7,11 @@ from app.schemas.topic import (
     WeakTopicRequest,
     WeakTopicResponse,
 )
+from app.schemas.consistency import (
+    ConsistencyRequest,
+    ConsistencyResponse,
+)
+from app.services.consistency_service import analyze_consistency
 from app.services.topic_service import detect_weak_topics
 from app.services.performance_service import calculate_performance
 from pydantic import BaseModel
@@ -44,3 +49,9 @@ def performance_score(data: PerformanceRequest):
 )
 def weak_topics(data: WeakTopicRequest):
     return detect_weak_topics(data)
+@app.post(
+    "/ai/consistency",
+    response_model=ConsistencyResponse,
+)
+def consistency_analysis(data: ConsistencyRequest):
+    return analyze_consistency(data)
