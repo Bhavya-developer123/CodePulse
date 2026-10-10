@@ -3,6 +3,11 @@ from app.schemas.performance import (
     PerformanceRequest,
     PerformanceResponse,
 )
+from app.schemas.topic import (
+    WeakTopicRequest,
+    WeakTopicResponse,
+)
+from app.services.topic_service import detect_weak_topics
 from app.services.performance_service import calculate_performance
 from pydantic import BaseModel
 app = FastAPI(
@@ -33,3 +38,9 @@ def test_ai(request: TestRequest):
 )
 def performance_score(data: PerformanceRequest):
     return calculate_performance(data)
+@app.post(
+    "/ai/weak-topics",
+    response_model=WeakTopicResponse,
+)
+def weak_topics(data: WeakTopicRequest):
+    return detect_weak_topics(data)
