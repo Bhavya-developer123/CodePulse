@@ -11,6 +11,11 @@ from app.schemas.consistency import (
     ConsistencyRequest,
     ConsistencyResponse,
 )
+from app.schemas.streak_prediction import (
+    StreakPredictionRequest,
+    StreakPredictionResponse,
+)
+from app.services.streak_prediction_service import predict_streak_risk
 from app.services.consistency_service import analyze_consistency
 from app.services.topic_service import detect_weak_topics
 from app.services.performance_service import calculate_performance
@@ -55,3 +60,9 @@ def weak_topics(data: WeakTopicRequest):
 )
 def consistency_analysis(data: ConsistencyRequest):
     return analyze_consistency(data)
+@app.post(
+    "/ai/streak-prediction",
+    response_model=StreakPredictionResponse,
+)
+def streak_prediction(data: StreakPredictionRequest):
+    return predict_streak_risk(data)
