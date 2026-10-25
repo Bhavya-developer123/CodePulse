@@ -15,11 +15,23 @@ from app.schemas.streak_prediction import (
     StreakPredictionRequest,
     StreakPredictionResponse,
 )
+from app.schemas.recommendation import (
+    RecommendationRequest,
+    RecommendationResponse,
+)
+from app.services.recommendation_service import (
+    generate_recommendations,
+)
 from app.services.streak_prediction_service import predict_streak_risk
 from app.services.consistency_service import analyze_consistency
 from app.services.topic_service import detect_weak_topics
 from app.services.performance_service import calculate_performance
 from pydantic import BaseModel
+from app.schemas.ml_prediction import (
+    WeeklyPredictionRequest,
+    WeeklyPredictionResponse,
+)
+from app.services.ml_prediction_service import predict_next_week
 app = FastAPI(
     title="CodePulse AI Service",
     version="1.0.0",
@@ -66,3 +78,15 @@ def consistency_analysis(data: ConsistencyRequest):
 )
 def streak_prediction(data: StreakPredictionRequest):
     return predict_streak_risk(data)
+@app.post(
+    "/ai/recommendations",
+    response_model=RecommendationResponse,
+)
+def recommendations(data: RecommendationRequest):
+    return generate_recommendations(data)
+@app.post(
+    "/ai/predict-next-week",
+    response_model=WeeklyPredictionResponse,
+)
+def predict_weekly_problems(data: WeeklyPredictionRequest):
+    return predict_next_week(data)
