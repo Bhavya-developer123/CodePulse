@@ -1,0 +1,8 @@
+
+user_id,topic,attempted,solved,easy_attempted,easy_solved,medium_attempted,medium_solved,hard_attempted,hard_solved
+101,Arrays,20,18,10,10,8,7,2,1
+101,Dynamic Programming,12,4,5,3,5,1,2,0
+101,Graphs,8,4,4,3,3,1,1,0
+101,Strings,3,2,2,2,1,0,0,0
+101,Trees,10,7,5,4,4,3,1,0
+101,Greedy,6,4,3,2,3,2,0,0

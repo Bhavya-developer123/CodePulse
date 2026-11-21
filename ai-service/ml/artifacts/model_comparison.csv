@@ -1,0 +1,4 @@
+model,cv_accuracy,cv_f1,test_accuracy,test_precision,test_recall,test_f1
+Logistic Regression,1.0,1.0,1.0,1.0,1.0,1.0
+Decision Tree,0.9583333333333334,0.9629629629629629,,,,
+Random Forest,1.0,1.0,,,,
