@@ -1,45 +1,43 @@
 
-from pathlib import Path
-import joblib
-import numpy as np
+import pandas as pd
+
 from app.schemas.ml_prediction import (
     WeeklyPredictionRequest,
     WeeklyPredictionResponse,
 )
-BASE_DIR = Path(__file__).resolve().parents[2]
-MODEL_PATH = BASE_DIR / "ml" / "artifacts" / "linear_regression.joblib"
-_model_artifact = None
-def get_model_artifact():
-    global _model_artifact
-    if _model_artifact is None:
-        if not MODEL_PATH.exists():
-            raise RuntimeError(
-                "Trained model not found. Run python ml/train_model.py first."
-            )
+from app.services.ml_model_service import load_model_artifact
 
-        _model_artifact = joblib.load(MODEL_PATH)
-    return _model_artifact
 
 def predict_next_week(
     data: WeeklyPredictionRequest,
 ) -> WeeklyPredictionResponse:
-    artifact = get_model_artifact()
+
+    artifact = load_model_artifact("weekly_prediction_model.joblib")
+
     model = artifact["model"]
-    features = np.array(
-        [[
-            data.problems_this_week,
-            data.problems_last_week,
-            data.active_days,
-        ]],
-        dtype=float,
+    features = artifact["features"]
+
+    input_values = data.model_dump()
+
+    if set(features) != set(input_values):
+        raise ValueError(
+            "Input features do not match trained model features."
+        )
+
+    input_data = pd.DataFrame(
+        [[input_values[feature] for feature in features]],
+        columns=features,
     )
-    prediction = float(model.predict(features)[0])
-    predicted_count = max(0, int(round(prediction)))
+
+    predicted_value = model.predict(input_data)[0]
+
+    predicted_problems = max(
+        0,
+        int(round(float(predicted_value)))
+    )
+
     return WeeklyPredictionResponse(
-        predicted_problems_next_week=predicted_count,
-        model="Linear Regression",
-        note=(
-            "Experimental estimate from synthetic training data; "
-            "not yet validated for real user predictions."
-        ),
+        predicted_problems_next_week=predicted_problems,
+        model=type(model).__name__,
+        note="Prediction generated using the trained weekly activity model."
     )

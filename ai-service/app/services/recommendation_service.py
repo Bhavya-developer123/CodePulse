@@ -2,6 +2,26 @@ from app.schemas.recommendation import (
     RecommendationRequest,
     RecommendationResponse,
 )
+from ml.recommendation_engine import (
+    load_topic_data,
+    generate_recommendations as generate_topic_recommendations
+)
+def get_topic_recommendations(user_id: int):
+
+    # Load ML-9 topic performance dataset
+    data = load_topic_data()
+
+    # Generate personalised topic recommendations
+    recommendations = generate_topic_recommendations(
+        data,
+        user_id
+    )
+
+    return {
+        "user_id": user_id,
+        "total_topics": len(recommendations),
+        "recommendations": recommendations
+    }
 def generate_recommendations(
     data: RecommendationRequest,
 ) -> RecommendationResponse:
